@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign In</title>
+  <link rel="stylesheet" href="adminsigin.css">
+</head>
+<body>
+    <form id="signInForm">
+    <div class="form">
+  <h2>Sign In</h2>
+  
+  
+    <input type="name" name="name" id="name" placeholder="Enter Name here">
+    <br>
+    <input type="password" name="password" id="password" placeholder="Enter Password Here">
+    <br>
+    <input type="submit" value="Sign In">
+  </form>
+</div>
+
+  <script>
+    document.getElementById("signInForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      var name = document.getElementById("name").value;
+      var password = document.getElementById("password").value;
+
+      var data = {
+        name: name,
+        password: password
+      };
+
+      fetch("http://localhost:9900/api/admins/" + name)
+        .then(response => response.json())
+        .then(result => {
+          if (result && result.name && result.password === password) {
+            // Successful login
+            console.log("Login successful:", result);
+
+            // Store name in session storage
+            sessionStorage.setItem("name", result.name);
+
+            // Redirect to the other page
+            window.location.href = "otherpage.html";
+          } else {
+            // Invalid credentials
+            console.log("Invalid credentials");
+            // Display an error message or perform appropriate actions
+          }
+        })
+        .catch(error => {
+          console.error("Error during login:", error);
+          // Handle the error or display error message
+        });
+    });
+  </script>
+</body>
+</html>

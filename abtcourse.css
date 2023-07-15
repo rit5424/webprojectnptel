@@ -1,0 +1,26 @@
+.row{
+    border: 2px solid black;
+    width: 1250px;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 20px;
+    background: orange;
+    
+}
+.col-sm-4{
+    border: 2px solid black;
+    border-radius: 20px;
+    height: 600px;
+    background: rgb(255, 255, 255);
+    
+}
+.btn{
+    border-radius: 20px;
+    justify-content: center;
+    display: flex;
+}
+.nav-item{
+    font-size: 30px;
+    color: orange;
+    margin: 10px;
+}

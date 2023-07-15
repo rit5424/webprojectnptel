@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <div>
+            <h2>SIGN UP</h2>
+            <input type="text" name="name" id="name" placeholder="Enter Name here">
+            <input type="text" name="rollno" id="rollno" placeholder="roolno">
+            <input type="text" name="mail" id="mail" placeholder="Enter Email Here">
+            <input type="password" name="password" id="password" placeholder="Enter Password Here">
+            <input type="password" name="passwords" id="passwords" placeholder="check Password Here">
+            <input type="submit" value="SET UP" id="insert" name="insert" >
+        </div> 
+        <p id="res"></p>
+    </form>
+    <script>
+      const insert = document.getElementById('insert');
+      const name = document.getElementById('name');
+      const rollno=document.getElementById('rollno');
+      const result = document.getElementById('res');
+      const mail = document.getElementById('mail');
+      const password = document.getElementById('password');
+        insert.addEventListener('click', () => {
+            if (rollno.value == "" && mail.value=="" && rollno.value=="") {
+                result.innerText = "Please enter rollno and name and roolno";
+            }
+            else {
+                fetch('http://localhost:8070/api/signup', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: name.value,
+                        rollno: rollno.value,
+                        mail: mail.value,
+                        password: password.value
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                })
+                    .then((res) => res.json())
+                    .then((res) => {result.innerText = JSON.stringify(res);});
+
+            }
+        });
+    </script>
+</body>
+
+</html>

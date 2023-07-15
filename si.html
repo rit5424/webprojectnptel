@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+  <form id="signUpForm">
+    <div class="form">
+      <h2>Sign Up</h2>
+      <input type="text" name="rollno" id="rollno" placeholder="Enter Roll Number here">
+      <br>
+      <input type="password" name="password" id="password" placeholder="Enter Password Here">
+      <br>
+      <input type="submit" value="Sign Up">
+    </div>
+  </form>
+
+  <script>
+    document.getElementById("signUpForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      var rollno = document.getElementById("rollno").value;
+      var password = document.getElementById("password").value;
+
+      var data = {
+        rollno: rollno,
+        password: password
+      };
+
+      fetch("http://localhost:9900/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json())
+        .then(result => {
+          // Assuming the server responds with the saved student object
+          if (result && result.rollno) {
+            // Successful sign up
+            console.log("Sign up successful:", result);
+
+            // Store roll number in session storage
+            sessionStorage.setItem("rollno", result.rollno);
+
+            // Redirect to the next page
+            window.location.href = "nextpage.html";
+          } else {
+            // Display an error message or perform appropriate actions
+            console.log("Sign up failed");
+          }
+        })
+        .catch(error => {
+          console.error("Error during sign up:", error);
+          // Handle the error or display error message
+        });
+    });
+  </script>
+</body>
+</html>
